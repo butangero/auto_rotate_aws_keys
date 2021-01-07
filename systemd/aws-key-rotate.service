@@ -1,0 +1,6 @@
+[Unit]
+Description=Rotate AWS Keys
+
+[Service]
+Type=oneshot
+ExecStart=/home/jkomoroski/.local/bin/aws-key-rotate
