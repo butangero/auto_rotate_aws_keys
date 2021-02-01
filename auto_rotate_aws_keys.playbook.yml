@@ -1,10 +1,10 @@
 ---
 ######################################################################################
 # Installs packages and configuration
-# to automatically rotate your AWS key daily
-# NOTE - later scale this back to monthly
-# NOTE - assumes you already have aws credentials
+# to automatically rotate your AWS key monthly
+# NOTE - assumes you already have aws credentials setup manually
 # NOTE - assumes you already have ansible installed, otherwise playbook wouldn't run
+# NOTE - run thusly:  ansible-playbook auto_rotate_aws_keys.playbook.yml
 ######################################################################################
 
 - name: Set up automatic aws key rotation
@@ -13,7 +13,7 @@
   connection: local
   vars:
     pip_install:
-      - awscli
+     #- awscli
       - boto
       - boto3
       - botocore
@@ -29,11 +29,14 @@
     with_items:
       - "{{ pip_install }}"
 
+  #NOTE  MacOS only - could be put into a block and then add other blocks for Linux/Windows
   - name: Copy launchd template to ~/Library/LaunchAgents
     template:
       src: com.tsmith.aws-rotate-keys.plist.j2
       dest: ~/Library/LaunchAgents/com.tsmith.aws-rotate-keys.plist
       mode: 0644
+    when: ansible_distribution == 'MacOSX'
 
   - name: exec launchctl to kick it off
     shell: launchctl load com.tsmith.aws-rotate-keys.plist
+    when: ansible_distribution == 'MacOSX'
