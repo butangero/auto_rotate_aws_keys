@@ -10,3 +10,5 @@ To Install:
 1. Create the `~/.config/systemd/user` directory
 2. Copy the `service` and `timer` files to the created directory
 3. Run the following command: `systemctl --user enable --now aws-key-rotate.timer`
+
+An example ubuntu-setup script is provided.

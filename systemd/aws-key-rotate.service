@@ -3,4 +3,4 @@ Description=Rotate AWS Keys
 
 [Service]
 Type=oneshot
-ExecStart=/home/jkomoroski/.local/bin/aws-key-rotate
+ExecStart=%h/.local/bin/aws-key-rotate
