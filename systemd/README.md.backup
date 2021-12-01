@@ -4,7 +4,7 @@
 - Running a modern linux system with Systemd version >=220
 - Aws CLI and Botocore dependencies installed
 - Aws credentials setup and initialized
-- `aws-rotate` installed via pip3
+- `aws-rotate` installed via pip
 
 ### Installation
 1. Create the `~/.config/systemd/user` directory
@@ -29,4 +29,5 @@ Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Written credentials out to /ho
 Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Old access key deleted from IAM
 Dec 01 09:49:33 host-name systemd[24775]: Finished Rotate AWS Keys.
 ```
+
 
