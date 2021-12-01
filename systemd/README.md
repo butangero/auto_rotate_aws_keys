@@ -1,14 +1,32 @@
 # Aws Auto Rotate With Systemd
 
-Assumptions:
-- Running a linux system with Systemd version >=220
+### Assumptions
+- Running a modern linux system with Systemd version >=220
 - Aws CLI and Botocore dependencies installed
 - Aws credentials setup and initialized
-- aws-rotate installed via pip
+- `aws-rotate` installed via pip3
 
-To Install:
+### Installation
 1. Create the `~/.config/systemd/user` directory
 2. Copy the `service` and `timer` files to the created directory
 3. Run the following command: `systemctl --user enable --now aws-key-rotate.timer`
 
-An example ubuntu-setup script is provided.
+_Example [fedora-setup.sh]() and [ubuntu-setup.sh]() scripts are provided._
+
+### Troubleshooting
+
+- Manually Launch: `systemctl --user start aws-key-rotate.service`
+- View Logs: `journalctl --user -u aws-key-rotate.service`
+- Reload Systemd After making changes: `systemctl --user daemon-reload`
+
+Example Happy Log:
+
+```
+Dec 01 09:49:31 host-name systemd[24775]: Starting Rotate AWS Keys...
+Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Created backup file /home/yourusername/.aws/credentials.bkp
+Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Using /home/yourusername/.aws/credentials
+Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Written credentials out to /home/yourusername/.aws/credentials
+Dec 01 09:49:33 host-name aws-rotate-keys[88998]: Old access key deleted from IAM
+Dec 01 09:49:33 host-name systemd[24775]: Finished Rotate AWS Keys.
+```
+
